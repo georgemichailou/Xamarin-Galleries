@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:XamarinGalleries.ViewModels"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             Title="Horizontal Gallery"
+             x:Class="XamarinGalleries.Views.HorizontalGallery">
+    
+    <ContentPage.BindingContext>
+        <viewModels:GalleryViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <CarouselView ItemsSource="{Binding Items}"
+                      PeekAreaInsets="80">
+           <CarouselView.ItemsLayout>
+                <LinearItemsLayout 
+                    Orientation="Horizontal" 
+                    SnapPointsAlignment="Center" 
+                    SnapPointsType="MandatorySingle"/>
+            </CarouselView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <ffimageloading:CachedImage
+                                LoadingPlaceholder="placeholder.png"
+                                RetryCount="2"
+                                RetryDelay="250" 
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                Source="{Binding}"
+                                Aspect="AspectFill"/>
+                        </StackLayout>
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CarouselView>
+    </ContentPage.Content>
+</ContentPage>

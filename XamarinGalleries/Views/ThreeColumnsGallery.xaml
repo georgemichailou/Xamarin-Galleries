@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:XamarinGalleries.ViewModels"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             Title="Three Columns Gallery"
+             x:Class="XamarinGalleries.Views.ThreeColumnsGallery">
+    
+    <ContentPage.BindingContext>
+        <viewModels:GalleryViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding Items}" 
+                            SelectionChanged="Images_SelectionChanged"
+                            SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                                     VerticalItemSpacing="5" 
+                                     HorizontalItemSpacing="5" 
+                                     Span="3"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                          <Grid HeightRequest="150">
+                              <ffimageloading:CachedImage LoadingPlaceholder="placeholder.png" 
+                                                          DownsampleToViewSize="true" 
+                                                          RetryCount="2"
+                                                          RetryDelay="250"
+                                                          Source="{Binding}" 
+                                                          Aspect="AspectFill"/>
+                          </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
